@@ -1,0 +1,14 @@
+.panelInicio{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #2d2a2a;
+  border-radius: 4px;
+  background-color: #b9b5b5;
+  padding: 10px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.botonEliminar{
+  border: none;
+  background-color: transparent;
+  color: #d31919;
+}

@@ -1,0 +1,17 @@
+<div class="container-fluid  row">
+  <div class="participantes-left col-md-6 col-sm-12 col-lg-6">
+    <label for="nombreParticipante">Nombre del participante</label>
+    <br>
+    <input class="form-control" type="text" id="nombreParticipante" [(ngModel)]="nombreParticipante" placeholder="Ingrese el nombre del participante">
+    <button type="button" class="btn btn-primary" (click)="agregarParticipante()">+ Añadir</button>
+  </div>
+  <div class="participantes-right col-md-6 col-sm-12 col-lg-6 panelInicio">
+    <ol class="participantes-list">
+      <li class="m-1" *ngFor ="let participante of participantes">
+        {{participante.nombre}}
+        <button type="button" class="botonEliminar" (click)="eliminarParticipante(participante.nombre)"><b>X</b></button>
+      </li>
+    </ol>
+
+  </div>
+</div>

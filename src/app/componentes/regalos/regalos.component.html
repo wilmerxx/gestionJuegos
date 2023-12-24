@@ -1,0 +1,17 @@
+
+<!--agregar juegos angular-->
+<div class="container-fluid row">
+  <div class="col-sm-12 col-lg-6">
+    <label class="m-1" for="juego">Regalos</label>
+    <br>
+    <input class="m-1 form-control" id="juego" type="text" [(ngModel)]="nombreRegalo" placeholder="agregar nombre del regalo">
+    <button class="btn btn-info" (click)="agregarRegalos()">+ Añadir</button>
+  </div>
+
+  <div class="col-sm-12 col-lg-6 panelRegalos">
+    <ol class="m-1">
+      <li *ngFor="let regalo of regalos">{{regalo}}</li>
+    </ol>
+
+  </div>
+</div>
