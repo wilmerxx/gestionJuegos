@@ -22,87 +22,62 @@ export class DatosService {
   _participantes: Participante[] = [];
   _regalos: Regalo[] = [];
   get regalos() {
-    return [...this._regalos];
+     if (this._regalos.length === 0) {
+        return [...this._regalos] = JSON.parse(localStorage.getItem('regalos') || '{}');
+      }else {
+        return [...this._regalos];
+      }
   }
 
   get participantes() {
-    return [...this._participantes];
+    if (this._participantes.length === 0) {
+      if (localStorage.getItem('participantes') === null) {
+        return [...this._participantes];
+      }else{
+        return [...this._participantes] = JSON.parse(localStorage.getItem('participantes') || '{}');
+      }
+    }else {
+      return [...this._participantes];
+    }
   }
 
   _grupos: Grupo[] = [];
 
   get grupos() {
-    return [...this._grupos];
+    if (this._grupos.length === 0) {
+      return [...this._grupos] = JSON.parse(localStorage.getItem('grupos') || '{}');
+    }else {
+      return [...this._grupos];
+    }
   }
 
   _juegos: Juegos[] = [];
 
   get juegos() {
+    if (this._juegos.length === 0) {
+      return [...this._juegos] = JSON.parse(localStorage.getItem('juegos') || '{}');
+    }else {
       return [...this._juegos];
+    }
   }
 
   _ganadores: Ganador[] = [];
 
   get ganadores() {
-    return [...this._ganadores];
+    if (this._ganadores.length === 0) {
+      return [...this._ganadores] = JSON.parse(localStorage.getItem('ganadores') || '{}');
+    }else {
+      return [...this._ganadores];
+    }
   }
 
   _ganadoresGrupo: GanadorGrupo[] = [];
   get ganadoresGrupo() {
-    return [...this._ganadoresGrupo];
-  }
-
-  //recuperar datos de localstorage
-  recuperarDatos() {
-    if (localStorage.getItem('juegos') === null) {
-      swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No hay juegos!',
-      });
+    if (this._ganadoresGrupo.length === 0) {
+      return [...this._ganadoresGrupo] = JSON.parse(localStorage.getItem('ganadoresGrupo') || '{}');
+    }else {
+      return [...this._ganadoresGrupo];
     }
-    if (localStorage.getItem('regalos') === null) {
-      swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No hay regalos!',
-      });
-    }
-    if (localStorage.getItem('ganadores') === null) {
-       swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No hay ganadores!',
-       });
-    }
-    if (localStorage.getItem('ganadoresGrupo') === null) {
-      swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No hay ganadores de grupo!',
-      });
-    }
-    if (localStorage.getItem('grupos') === null) {
-      swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No hay grupos!',
-      });
-    }
-    if (localStorage.getItem('participantes') === null) {
-      swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'No hay participantes!',
-      });
-    }
-
-    this._juegos = JSON.parse(localStorage.getItem('juegos') || '[]');
-    this._regalos = JSON.parse(localStorage.getItem('regalos') || '[]');
-    this._ganadores = JSON.parse(localStorage.getItem('ganadores') || '[]');
-    this._ganadoresGrupo = JSON.parse(localStorage.getItem('ganadoresGrupo') || '[]');
-    this._grupos = JSON.parse(localStorage.getItem('grupos') || '[]');
-    this._participantes = JSON.parse(localStorage.getItem('participantes') || '[]');
   }
 
 
@@ -122,6 +97,7 @@ export class DatosService {
       let grupo = new Grupo();
       grupo.nombre = abecedario[i];
       this._grupos.push(grupo);
+      localStorage.setItem('grupos', JSON.stringify(this._grupos));
     }
 
     // Asigna aleatoriamente a cada participante a un grupo
@@ -132,13 +108,14 @@ export class DatosService {
       for (let i = 0; i < this._grupos.length; i++) {
         if (this._grupos[i].participantes.length < this._participantes.length / this._grupos.length) {
           this._grupos[i].participantes.push(participante);
+          localStorage.setItem('grupos', JSON.stringify(this._grupos));
           break;
         }
       }
     }
   }
 
-  ganarGrupo(nombre: string) {
+  ganar(nombre: string) {
     // buscar el participante
     let indice = -1;
     for (let i = 0; i < this.grupos.length; i++) {
@@ -196,6 +173,7 @@ export class DatosService {
       }
     }
     this._participantes.splice(indice, 1);
+    //eliminar del storage
     localStorage.setItem('participantes', JSON.stringify(this._participantes));
   }
 
@@ -251,24 +229,11 @@ export class DatosService {
   }
 
   limpiarTodosLosDatos() {
-    swal.fire({
-      title: 'Estas seguro?',
-      text: "No podras revertir los cambios!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-       confirmButtonText: 'Si, estoy seguro!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.limpiarDatos();
-        swal.fire(
-          'Eliminado!',
-          'Todos los datos han sido eliminados.',
-          'success'
-        );
-      }
+    this._participantes.forEach(participante => {
+      participante.puntaje = 0;
     });
+    this._grupos = [];
+
   }
 
 
@@ -296,7 +261,6 @@ export class DatosService {
       }
     }
     this._juegos.splice(indice, 1);
-    localStorage.setItem('juegos', JSON.stringify(this._juegos));
   }
 
   juegoseleccionado(juego: Juegos) {
@@ -312,6 +276,7 @@ export class DatosService {
       juego.juegoseleccionado = false;
     });
     this._juegos[indice].juegoseleccionado = true;
+    localStorage.setItem('juegos', JSON.stringify(this._juegos));
   }
   //--------------------------regalos--------------------------
 //agregar regalos
@@ -329,7 +294,8 @@ export class DatosService {
       }
     }
     this._regalos.splice(indice, 1);
-     localStorage.setItem('regalos', JSON.stringify(this._regalos));
+    localStorage.setItem('regalos', JSON.stringify(this._regalos));
+
   }
 
   regaloseleccionado(regalo: Regalo) {
@@ -345,6 +311,7 @@ export class DatosService {
       regalo.regaloseleccionado = false;
     });
     this._regalos[indice].regaloseleccionado = true;
+    localStorage.setItem('regalos', JSON.stringify(this._regalos));
   }
 
   limpiarSelecionado(objeto: any) {
@@ -357,6 +324,7 @@ export class DatosService {
         }
       }
       this._juegos[indice].juegoseleccionado = false;
+      localStorage.setItem('juegos', JSON.stringify(this._juegos));
     }else if (objeto instanceof Regalo) {
       let indice = -1;
       for (let i = 0; i < this.regalos.length; i++) {
@@ -366,6 +334,7 @@ export class DatosService {
         }
       }
       this._regalos[indice].regaloseleccionado = false;
+      localStorage.setItem('regalos', JSON.stringify(this._regalos));
     }
 
   }
@@ -389,40 +358,5 @@ export class DatosService {
     grupo.participantes = participantes;
     this._grupos.push(grupo);
     localStorage.setItem('grupos', JSON.stringify(this._grupos));
-  }
-
-  eliminarGrupo(nombre: string) {
-    let indice = -1;
-    for (let i = 0; i < this.grupos.length; i++) {
-      if (this.grupos[i].nombre === nombre) {
-        indice = i;
-        break;
-      }
-    }
-    this._grupos.splice(indice, 1);
-    localStorage.setItem('grupos', JSON.stringify(this._grupos));
-  }
-
-  reiniciarPuntajeParticipantes() {
-    this._participantes.forEach(participante => {
-      participante.puntaje = 0;
-    });
-   localStorage.setItem('participantes', JSON.stringify(this._participantes));
-  }
-
-  reiniciarPuntajeGrupo() {
-    this._grupos.forEach(grupo => {
-      grupo.puntaje = 0;
-    });
-  }
-
-  private limpiarDatos() {
-    this._participantes = [];
-    this._grupos = [];
-    this._juegos = [];
-    this._regalos = [];
-    this._ganadores = [];
-    this._ganadoresGrupo = [];
-    localStorage.clear();
   }
 }

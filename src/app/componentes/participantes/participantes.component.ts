@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Participante } from 'src/app/modelo/participante';
 import { DatosService } from 'src/app/servicio/datos.service';
 import swal from "sweetalert2";
 
@@ -12,6 +11,7 @@ export class ParticipantesComponent implements OnInit {
 
   constructor(private datosServicio: DatosService) { }
 
+
   nombreParticipante: string = '';
 
   get participantes() {
@@ -23,13 +23,15 @@ export class ParticipantesComponent implements OnInit {
   }
 
   agregarParticipante() {
-    if (this.nombreParticipante == '') {
+     //si el nombre esta vacio
+    if (this.nombreParticipante === '') {
       swal.fire({
         title: 'Error!',
         text: 'Debe ingresar un nombre',
         icon: 'error',
         confirmButtonText: 'Ok'
       });
+      console.log("esta vacio"+this.nombreParticipante);
       return;
     }
     //si el nombre solo tiene espacios en blanco

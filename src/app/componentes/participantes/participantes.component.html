@@ -1,9 +1,16 @@
 <div class="container-fluid  row">
   <div class="participantes-left col-md-6 col-sm-12 col-lg-6">
-    <label for="nombreParticipante">Nombre del participante</label>
-    <br>
-    <input class="form-control" type="text" id="nombreParticipante" [(ngModel)]="nombreParticipante" placeholder="Ingrese el nombre del participante">
-    <button type="button" class="btn btn-primary" (click)="agregarParticipante()">+ Añadir</button>
+    <div class="row">
+      <div class="col-lg-9">
+        <label for="nombreParticipante"><b> Nombre del participante</b></label>
+        <br>
+        <input class="form-control" type="text" id="nombreParticipante" [(ngModel)]="nombreParticipante" (keydown.enter)="agregarParticipante()" placeholder="Ingrese el nombre del participante">
+      </div>
+      <div class="col-lg-3 align-self-end">
+        <button type="button" class="btn btn-primary" (click)="agregarParticipante()">+ Añadir</button>
+      </div>
+    </div>
+
   </div>
   <div class="participantes-right col-md-6 col-sm-12 col-lg-6 panelInicio">
     <ol class="participantes-list">
@@ -12,6 +19,5 @@
         <button type="button" class="botonEliminar" (click)="eliminarParticipante(participante.nombre)"><b>X</b></button>
       </li>
     </ol>
-
   </div>
 </div>

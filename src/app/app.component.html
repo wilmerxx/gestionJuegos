@@ -1,31 +1,67 @@
 <div class="container p-2 mt-4 fondo">
   <div class="row">
-      <h1>Juegos navideños</h1>
-      <div class="col-12">
+      <h1><strong style="text-decoration: underline;"> Juegos Feliz año 2023 al 2024</strong> </h1>
+    <div class="m-2 col-lg-12 align-self-end ">
+      <button type="button" class="btn btn-primary " (click)="recuperarDatos()" >Recuperar datos</button>
+    </div>
+
+      <div class="col-12 mt-4">
      <app-participantes> </app-participantes>
       </div>
-    <div class="col-12">
+    <div class="col-12 mt-4">
       <app-juegos></app-juegos>
     </div>
-    <div class="col-12">
+    <div class="col-12 mt-4">
       <app-regalos> </app-regalos>
       </div>
+
+    <div class="grupoJuego">
+      <ul>
+        <li class="listJuego" *ngFor="let juego of juegos" (click)="juegoSeleccionados(juego)" [class.seleccionado]="juegoSeleccionado === juego">
+          <h3>{{juego.nombre}}</h3>
+          <p class="badge badge-primary puntos"> Puntos: {{juego.puntos}}</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="grupoRegalo">
+      <ul>
+        <li class="listregalo" *ngFor="let regalo of regalos" (click)="regaloSeleccionados(regalo)" [class.seleccionado]="regaloSeleccionado === regalo">
+          <h4>{{regalo.nombre}}</h4>
+        </li>
+      </ul>
+    </div>
+
+
     <div class="row mt-5">
       <div class="col-12">
-        <button class="btn btn-info" (click)="seleccionarVista('grupo')">Grupo</button>
+        <button class="btn btn-info m-2" (click)="seleccionarVista('grupo')">Grupo</button>
         <button class="btn btn-success" (click)="seleccionarVista('individual')">Individual</button>
       </div>
 
       <div class="col-12">
-        <div *ngIf="vistaSeleccionada === 'grupo'">
-          <app-grupos></app-grupos>
+        <div class="mt-4" *ngIf="vistaSeleccionada === 'grupo'">
+          <button class="btn btn-primary m-2" (click)="seleccionarVistaGrupo('manual')">Manual</button>
+          <button class="btn btn-warning" (click)="seleccionarVistaGrupo('automatico')">Automatico</button>
+          <div *ngIf="vistaSeleccionadaGrupo === 'automatico'" class="col-lg-12 " >
+            <app-grupos class="mt-4"></app-grupos>
+          </div>
+          <div *ngIf="vistaSeleccionadaGrupo === 'manual'" class = "col-lg-12 grupoManual" >
+            <app-grupos-manual></app-grupos-manual>
+          </div>
           <div class = "col-12">
             <app-resultados></app-resultados>
+          </div>
+          <div class="col-lg-12">
+            <app-historial-grupo></app-historial-grupo>
           </div>
         </div>
 
         <div *ngIf="vistaSeleccionada === 'individual'">
           <app-individual></app-individual>
+          <div class="col-lg-12">
+            <app-historial-individual></app-historial-individual>
+          </div>
         </div>
       </div>
     </div>
@@ -37,6 +73,8 @@
       <button class="btn btn-danger" (click)="terminarJuego()">Terminar juego</button>
     </div>
   </div>
+
+
 
 </div>
 

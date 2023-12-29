@@ -2,6 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { DatosService } from 'src/app/servicio/datos.service';
 import {Grupo} from "../../modelo/grupo";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {GanadorGrupo} from "../../modelo/ganador-grupo";
 
 @Component({
   selector: 'app-resultados',
@@ -19,7 +20,7 @@ export class ResultadosComponent implements OnInit {
   constructor(private datosServicio: DatosService) { }
 
   get grupos() {
-    return [...this.datosServicio.grupos];
+    return this.datosServicio.grupos;
   }
 
   grupoGanadores: Grupo []=[];
@@ -30,7 +31,7 @@ export class ResultadosComponent implements OnInit {
 
   //ordenar grupos por puntaje
   get ordenarGrupos() {
-    this.grupoGanadores = this.grupos.sort((a, b) => {
+    return this.grupoGanadores = this.grupos.sort((a , b) => {
       if (a.puntaje > b.puntaje) {
         return -1;
       }
@@ -40,12 +41,7 @@ export class ResultadosComponent implements OnInit {
       return 0;
     }
     );
-    return  this.grupoGanadores;
-  }
 
-  getPositionAnimation(index: number): string {
-    // Puedes personalizar esta lógica según tus necesidades
-    return index === 0 ? 'up' : 'down';
   }
 
 

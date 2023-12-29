@@ -1,8 +1,15 @@
 <div class="grupos">
   <h2>Grupos</h2>
-  <button class="btn btn-success" (click)="generarGrupos()">Crear grupo</button>
-  <label class="m-5" for="cantidad">Cantidad de grupos</label>
-  <input type="number" id="cantidad" name="cantidad" [(ngModel)]="cantidad">
+  <div class="row">
+    <div class = 'col-lg-6'>
+      <button class="btn btn-success" (click)="generarGrupos()">Generar auto</button>
+      <label class="m-5" for="cantidad">Cantidad de grupos</label>
+      <input type="number" id="cantidad" name="cantidad" [(ngModel)]="cantidad" (keydown.enter)="generarGrupos()">
+    </div>
+  </div>
+  <div class="mt-4">
+    <button type="button" class="btn btn-primary" (click)="reiniciarPuntajeGrupo()">Reiniciar puntaje</button>
+  </div>
   <div class="grupoDiv">
     <ul>
       <li class="grupolist" *ngFor="let grupo of gruposGenerados">
@@ -14,7 +21,7 @@
         </ol>
         <p>puntaje {{grupo.puntaje}}</p>
         <div class="text-center">
-          <button class="btn btn-danger mt-2" (click)="ganar(grupo.nombre)">Gana</button>
+          <button class="btn btn-danger mt-2" (click)="ganar(grupo)">Gana</button>
         </div>
       </li>
     </ul>

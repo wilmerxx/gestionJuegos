@@ -1,7 +1,8 @@
 export class Regalo {
 
   nombre: string;
-    regalos: Regalo[] = [];
+  regalos: Regalo[] = [];
+  regaloseleccionado: any = null;
 
     constructor() {
         this.nombre = '';
@@ -11,5 +12,12 @@ export class Regalo {
     }
     setRegalos(regalo: Regalo) {
         this.regalos.push(regalo);
+    }
+
+    getRegaloSeleccionado() {
+        return this.regaloseleccionado;
+    }
+    setRegaloSeleccionado(regalo: Regalo) {
+        this.regaloseleccionado = regalo;
     }
 }

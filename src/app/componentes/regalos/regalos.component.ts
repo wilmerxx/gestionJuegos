@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
+import { DatosService } from '../../servicio/datos.service';
+import {Regalo} from "../../modelo/regalo";
 @Component({
   selector: 'app-regalos',
   templateUrl: './regalos.component.html',
@@ -7,9 +9,13 @@ import swal from 'sweetalert2';
 })
 export class RegalosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private datosServicio: DatosService) { }
   nombreRegalo: string = '';
-  regalos: string[] = [];
+
+
+  get regalos() {
+    return this.datosServicio.regalos;
+  }
 
   ngOnInit(): void {
   }
@@ -37,8 +43,8 @@ export class RegalosComponent implements OnInit {
     //el primera letra en mayuscula
     this.nombreRegalo = this.nombreRegalo.charAt(0).toUpperCase() + this.nombreRegalo.slice(1);
     //si el nombre ya existe
-    for (let i = 0; i < this.regalos.length; i++) {
-      if (this.nombreRegalo == this.regalos[i]) {
+    for (let i = 0; i < this.datosServicio.regalos.length; i++) {
+      if (this.nombreRegalo == this.datosServicio.regalos[i].nombre) {
         swal.fire({
           title: 'Error!',
           text: 'El nombre ya existe',
@@ -48,8 +54,31 @@ export class RegalosComponent implements OnInit {
         return;
       }
     }
-this.regalos.push(this.nombreRegalo);
-this.nombreRegalo = '';
+    let regalo = new Regalo();
+    //agregar el nombre al arreglo
+    regalo.nombre = this.nombreRegalo;
+    this.datosServicio.agregarRegalo(regalo);
+    this.nombreRegalo = '';
   }
 
+  eliminarRegalo(regalo: Regalo) {
+    swal.fire({
+      title: '¿Está seguro?',
+      text: 'No se podrá recuperar el regalo',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'No, cancelar'
+    }).then((result) => {
+      if (result.value) {
+        this.datosServicio.eliminarRegalo(regalo);
+        swal.fire(
+          'Eliminado!',
+          'El regalo ha sido eliminado',
+          'success'
+        );
+      }
+    });
+
+  }
 }

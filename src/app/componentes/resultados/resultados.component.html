@@ -21,8 +21,9 @@
                   <td>
                     <img src="assets/enamorado.gif" *ngIf="ordenarGrupos.indexOf(grupo) + 1 === 1" alt="enamorado" width="50" height="50">
                     <img src="assets/sorprendido.gif" *ngIf="ordenarGrupos.indexOf(grupo) + 1 === 2 " alt="risa" width="50" height="50">
-                    <img src="assets/triste.gif" *ngIf="ordenarGrupos.indexOf(grupo) + 1 === 3 " alt="llorar" width="50" height="50">
-                    <img src="assets/llorar.gif" *ngIf="ordenarGrupos.indexOf(grupo) + 1 >3 " alt="enojado" width="50" height="50">
+                    <img src="assets/feliz.gif" *ngIf="ordenarGrupos.indexOf(grupo) + 1 === 3 " alt="feliz" width="50" height="50">
+                    <img src="assets/triste.gif" *ngIf="ordenarGrupos.indexOf(grupo) + 1 ==4 " alt="triste" width="50" height="50">
+                    <img src="assets/llorar.gif" *ngIf="ordenarGrupos.indexOf(grupo) + 1 >4 " alt="enojado" width="50" height="50">
                   </td>
                 </tr>
                 </tbody>
@@ -46,7 +47,15 @@
           </div>
           <div class="modal-body">
             <ul>
-              <li *ngFor="let ganador of ordenarGrupos.slice(0,3)">{{ ganador.nombre }} - Puntaje: {{ ganador.puntaje }}</li>
+              <li *ngFor="let ganador of ordenarGrupos.slice(0,3)">
+                <h3 *ngIf="ordenarGrupos.indexOf(ganador)+1 === 1 ">Primer Lugar</h3>
+                <h4 *ngIf="ordenarGrupos.indexOf(ganador)+1 === 2 ">Segundo Lugar</h4>
+                <h5 *ngIf="ordenarGrupos.indexOf(ganador)+1 === 3 ">Tercer Lugar</h5>
+                <h2><b>{{ ganador.nombre }}</b></h2>  <b>Puntaje:</b> {{ ganador.puntaje }}
+                <img src="assets/enamorado.gif" *ngIf="ordenarGrupos.indexOf(ganador) + 1 === 1" alt="enamorado" width="50" height="50">
+                <img src="assets/sorprendido.gif" *ngIf="ordenarGrupos.indexOf(ganador) + 1 === 2 " alt="risa" width="50" height="50">
+                <img src="assets/feliz.gif" *ngIf="ordenarGrupos.indexOf(ganador) + 1 === 3 " alt="llorar" width="50" height="50">
+              </li>
             </ul>
           </div>
           <button type="button" class="btn btn-secondary" (click)="hideModal()">Cerrar</button>

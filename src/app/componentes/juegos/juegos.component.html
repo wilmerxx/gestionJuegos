@@ -1,15 +1,31 @@
 <!--agregar juegos angular-->
 <div class="container-fluid row">
   <div class="col-sm-12 col-lg-6">
-    <label class="m-1" for="juego">Nombre del juego</label>
-    <br>
-    <input class="m-1 form-control" id="juego" type="text" [(ngModel)]="nombreJuego" placeholder="agregar nombre del juego">
-    <button class="btn btn-info" (click)="agregarJuego()">+ Añadir</button>
+  <div class="row">
+    <div class="col-lg-6">
+      <label class="" for="juego"><b>Nombre del juego</b> </label>
+      <input class=" form-control" id="juego" type="text" [(ngModel)]="nombreJuego"  placeholder="agregar nombre del juego">
+    </div>
+    <div class="col-lg-3">
+      <label class="" for="puntos">Puntos</label>
+      <input class=" form-control" type="number" id="puntos" [(ngModel)]="puntos" (keydown.enter)="agregarJuego()">
+    </div>
+    <div class="col-lg-3 align-self-end">
+      <button class="btn btn-info" (click)="agregarJuego()">+ Añadir</button>
+    </div>
+
+  </div>
   </div>
 
   <div class="col-sm-12 col-lg-6 panelJuegos">
     <ol class="m-1">
-      <li *ngFor="let juego of juegos">{{juego}}</li>
+      <li *ngFor="let juego of juegos">
+        {{juego.nombre}}
+        <span class="puntos">{{juego.puntos}}</span>
+
+        <button type="button" class="botonEliminar"  (click)="eliminarJuego(juego.nombre)"><b>X</b></button>
+      </li>
+
     </ol>
 
   </div>

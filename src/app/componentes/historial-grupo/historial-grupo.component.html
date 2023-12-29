@@ -1,0 +1,36 @@
+
+<!--historial de participante en angular-->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Historial de Grupo</h3>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Ganadores</th>
+          <th>Juegos</th>
+          <th>Regalos</th>
+          <th>puntos</th>
+          <th>Participantes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ganador of ganadoresGrupo">
+          <td>{{ganadoresGrupo.indexOf(ganador) + 1}}</td>
+          <td>{{ganador.grupo}}</td>
+          <td>{{ganador.juego}}</td>
+          <td>{{ganador.regalo}}</td>
+          <td>{{ganador.puntaje}}</td>
+          <td>
+            <ul *ngFor="let participante of ganador.participantes">
+              <li>{{participante.nombre}}</li>
+            </ul>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,38 @@
+<!--ingresar los datos del grupo como nombre del gurpo y agregar los integrantes existentes con angular-->
+<div>
+  <div class="row grupo">
+    <div class="col-lg-6 col-sm-12">
+      <div class="form-group">
+        <label for="nombre">Nombre del grupo</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Nombre del grupo" name="nombre" [(ngModel)]="nombre" (keydown.enter)="agregarGrupoManualmente()" >
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12 panel-participantes">
+      <p>Participantes</p>
+      <div class="form-group" *ngFor="let participante of participantes">
+        <input type="checkbox" class="form-check-input"  value="{{participante.nombre}}" (click)="seleccionarParticipante(participante.nombre)"> {{participante.nombre}}
+      </div>
+      <button type="button" class="btn btn-primary" (click)="agregarGrupoManualmente()">Guardar</button>
+    </div>
+  </div>
+  <div class="mt-4">
+    <button type="button" class="btn btn-primary" (click)="reiniciarPuntajeGrupo()">Reiniciar puntaje</button>
+  </div>
+  <div class="grupoDiv">
+    <ul>
+      <li class="grupolist" *ngFor="let grupo of grupos">
+        <button type="button" class="botonEliminar" (click)="eliminarGrupo(grupo.nombre)"><b>X</b></button>
+        <h3>{{grupo.nombre}}</h3>
+        <ol>
+          <li *ngFor="let integrante of grupo.participantes">
+            {{integrante.nombre}}
+          </li>
+        </ol>
+        <p>puntaje {{grupo.puntaje}}</p>
+        <div class="text-center">
+          <button class="btn btn-danger mt-2" (click)="ganar(grupo)">Gana</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

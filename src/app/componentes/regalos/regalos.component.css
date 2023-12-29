@@ -5,4 +5,30 @@
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    background-color: rgba(211, 204, 204, 0.75);
+}
+
+.botonEliminar{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  list-style: none;
+  border: none;
+  background: none;
+  color: #e10b0b;
+  cursor: pointer;
+}
+
+.regalos{
+  display: flex;
+  flex-direction: row;
+  grid-gap: 2%;
+  flex-wrap: wrap;
+}
+
+.regalos li{
+  padding:1%;
+}
+
+.botonAnadir{
+  align-self: end;
 }

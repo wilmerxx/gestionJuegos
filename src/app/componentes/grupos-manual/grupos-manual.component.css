@@ -1,0 +1,42 @@
+.grupo{
+    margin: 10px;
+    padding: 10px;
+    border: 15px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(103, 213, 167, 0.76);
+    box-shadow: 0 0 5px #ccc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.grupo:hover{
+    background-color: rgba(103, 213, 167, 0.96);
+    box-shadow: 0 0 10px #ccc;
+}
+
+.panel-participantes{
+  background-color: rgba(248, 30, 89, 0.52);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.panel-participantes:hover{
+  background-color: rgba(215, 91, 124, 0.96);
+}
+.grupolist {
+  padding:1%;
+  margin: 1%;
+  width-min: 300px;
+  width-max: 500px;
+  width: 15%;
+
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  list-style: none;
+}
+
+.grupoDiv ul {
+  display: flex;
+  grid-gap: 2%;
+  flex-wrap: wrap;
+}
